@@ -34,39 +34,4 @@ app.post('/send-otp', async (req, res) => {
     res.json({ success: false, message: err.message });
   }
 });
-// Table email bhejne wala endpoint
-app.post('/send-table-mail', async (req, res) => {
-  try {
-    const { to, subject, message } = req.body;
-    if (!to || !subject || !message) {
-      return res.status(400).json({ success: false, message: "Missing required fields" });
-    }
-
-    // Multiple email support
-    const emailList = Array.isArray(to) ? to : [to];
-
-    // Ye transporter wahi use kar lo jo OTP ke liye hai
-    let transporter = nodemailer.createTransport({
-      host: 'smtpout.secureserver.net',
-      port: 465,
-      secure: true,
-      auth: {
-        user: 'sagar@sunidhiagrotech.com',
-        pass: process.env.EMAIL_PASS  // yahi env variable use karo
-      }
-    });
-
-    await transporter.sendMail({
-      from: '"SAT Kanban" <sagar@sunidhiagrotech.com>',
-      to: emailList.join(","),
-      subject: subject,
-      text: message
-    });
-
-    res.json({ success: true });
-  } catch (err) {
-    res.json({ success: false, message: err.message });
-  }
-});
-
 app.listen(4444, () => console.log('OTP Server running on port 4444'));

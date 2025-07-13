@@ -18,12 +18,12 @@ app.post('/send-otp', async (req, res) => {
       port: 465,
       secure: true,
       auth: {
-        user: 'sagar@sunidhiagrotech.com',
+        user: 'satgpt2025@gmail.com',
         pass: process.env.EMAIL_PASS  // password env variable se lo (security!)
       }
     });
     await transporter.sendMail({
-      from: '"SAT Kanban" <sagar@sunidhiagrotech.com>',
+      from: '"SAT Kanban" <satgpt2025@gmail.com>',
       to: email,
       subject: 'SAT Kanban OTP for Deletion',
       text: `Your OTP for card deletion is: ${otp}`,
